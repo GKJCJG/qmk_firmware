@@ -1,10 +1,7 @@
-Character(character=',', codepoint='U+002c', name='COMMA')
-Character(character='3', codepoint='U+0033', name='DIGIT THREE')
-Character(character='4', codepoint='U+0034', name='DIGIT FOUR')
-Character(character='9', codepoint='U+0039', name='DIGIT NINE')
-Character(character='u', codepoint='U+0075', name='LATIN SMALL LETTER U')
 Character(character='¡', codepoint='U+00a1', name='INVERTED EXCLAMATION MARK')
 Character(character='§', codepoint='U+00a7', name='SECTION SIGN')
+
+
 Character(character='Á', codepoint='U+00c1', name='LATIN CAPITAL LETTER A WITH ACUTE')
 Character(character='Â', codepoint='U+00c2', name='LATIN CAPITAL LETTER A WITH CIRCUMFLEX')
 Character(character='Ã', codepoint='U+00c3', name='LATIN CAPITAL LETTER A WITH TILDE')
@@ -132,8 +129,11 @@ Character(character='ȳ', codepoint='U+0233', name='LATIN SMALL LETTER Y WITH MA
 Character(character='ə', codepoint='U+0259', name='LATIN SMALL LETTER SCHWA')
 Character(character='ɪ', codepoint='U+026a', name='LATIN LETTER SMALL CAPITAL I')
 Character(character='ʏ', codepoint='U+028f', name='LATIN LETTER SMALL CAPITAL Y')
+Character(character='̍', codepoint='U+030D', name='COMBINING VERTICAL LINE ABOVE')
 Character(character='̥', codepoint='U+0325', name='COMBINING RING BELOW')
 Character(character='̯', codepoint='U+032f', name='COMBINING INVERTED BREVE BELOW')
+
+
 Character(character='Ͱ', codepoint='U+0370', name='GREEK CAPITAL LETTER HETA')
 Character(character='ͱ', codepoint='U+0371', name='GREEK SMALL LETTER HETA')
 Character(character='Ͳ', codepoint='U+0372', name='GREEK CAPITAL LETTER ARCHAIC SAMPI')
@@ -239,20 +239,6 @@ Character(character='Ϟ', codepoint='U+03de', name='GREEK LETTER KOPPA')
 Character(character='ϟ', codepoint='U+03df', name='GREEK SMALL LETTER KOPPA')
 Character(character='Ϡ', codepoint='U+03e0', name='GREEK LETTER SAMPI')
 Character(character='ϡ', codepoint='U+03e1', name='GREEK SMALL LETTER SAMPI')
-Character(character='Ϣ', codepoint='U+03e2', name='COPTIC CAPITAL LETTER SHEI')
-Character(character='ϣ', codepoint='U+03e3', name='COPTIC SMALL LETTER SHEI')
-Character(character='Ϥ', codepoint='U+03e4', name='COPTIC CAPITAL LETTER FEI')
-Character(character='ϥ', codepoint='U+03e5', name='COPTIC SMALL LETTER FEI')
-Character(character='Ϧ', codepoint='U+03e6', name='COPTIC CAPITAL LETTER KHEI')
-Character(character='ϧ', codepoint='U+03e7', name='COPTIC SMALL LETTER KHEI')
-Character(character='Ϩ', codepoint='U+03e8', name='COPTIC CAPITAL LETTER HORI')
-Character(character='ϩ', codepoint='U+03e9', name='COPTIC SMALL LETTER HORI')
-Character(character='Ϫ', codepoint='U+03ea', name='COPTIC CAPITAL LETTER GANGIA')
-Character(character='ϫ', codepoint='U+03eb', name='COPTIC SMALL LETTER GANGIA')
-Character(character='Ϭ', codepoint='U+03ec', name='COPTIC CAPITAL LETTER SHIMA')
-Character(character='ϭ', codepoint='U+03ed', name='COPTIC SMALL LETTER SHIMA')
-Character(character='Ϯ', codepoint='U+03ee', name='COPTIC CAPITAL LETTER DEI')
-Character(character='ϯ', codepoint='U+03ef', name='COPTIC SMALL LETTER DEI')
 Character(character='ϰ', codepoint='U+03f0', name='GREEK KAPPA SYMBOL')
 Character(character='ϱ', codepoint='U+03f1', name='GREEK RHO SYMBOL')
 Character(character='ϲ', codepoint='U+03f2', name='GREEK LUNATE SIGMA SYMBOL')
@@ -269,6 +255,8 @@ Character(character='ϼ', codepoint='U+03fc', name='GREEK RHO WITH STROKE SYMBOL
 Character(character='Ͻ', codepoint='U+03fd', name='GREEK CAPITAL REVERSED LUNATE SIGMA SYMBOL')
 Character(character='Ͼ', codepoint='U+03fe', name='GREEK CAPITAL DOTTED LUNATE SIGMA SYMBOL')
 Character(character='Ͽ', codepoint='U+03ff', name='GREEK CAPITAL REVERSED DOTTED LUNATE SIGMA SYMBOL')
+
+
 Character(character='Ё', codepoint='U+0401', name='CYRILLIC CAPITAL LETTER IO')
 Character(character='Б', codepoint='U+0411', name='CYRILLIC CAPITAL LETTER BE')
 Character(character='В', codepoint='U+0412', name='CYRILLIC CAPITAL LETTER VE')
@@ -342,6 +330,8 @@ Character(character='Ѫ', codepoint='U+046a', name='CYRILLIC CAPITAL LETTER BIG 
 Character(character='ѫ', codepoint='U+046b', name='CYRILLIC SMALL LETTER BIG YUS')
 Character(character='Ѭ', codepoint='U+046c', name='CYRILLIC CAPITAL LETTER IOTIFIED BIG YUS')
 Character(character='ѭ', codepoint='U+046d', name='CYRILLIC SMALL LETTER IOTIFIED BIG YUS')
+
+
 Character(character='Ḃ', codepoint='U+1e02', name='LATIN CAPITAL LETTER B WITH DOT ABOVE')
 Character(character='ḃ', codepoint='U+1e03', name='LATIN SMALL LETTER B WITH DOT ABOVE')
 Character(character='Ḋ', codepoint='U+1e0a', name='LATIN CAPITAL LETTER D WITH DOT ABOVE')
@@ -370,6 +360,8 @@ Character(character='Ẽ', codepoint='U+1ebc', name='LATIN CAPITAL LETTER E WITH
 Character(character='ẽ', codepoint='U+1ebd', name='LATIN SMALL LETTER E WITH TILDE')
 Character(character='Ỹ', codepoint='U+1ef8', name='LATIN CAPITAL LETTER Y WITH TILDE')
 Character(character='ỹ', codepoint='U+1ef9', name='LATIN SMALL LETTER Y WITH TILDE')
+
+
 Character(character='ἀ', codepoint='U+1f00', name='GREEK SMALL LETTER ALPHA WITH PSILI')
 Character(character='ἁ', codepoint='U+1f01', name='GREEK SMALL LETTER ALPHA WITH DASIA')
 Character(character='ἂ', codepoint='U+1f02', name='GREEK SMALL LETTER ALPHA WITH PSILI AND VARIA')
@@ -603,5 +595,7 @@ Character(character='Ώ', codepoint='U+1ffb', name='GREEK CAPITAL LETTER OMEGA 
 Character(character='ῼ', codepoint='U+1ffc', name='GREEK CAPITAL LETTER OMEGA WITH PROSGEGRAMMENI')
 Character(character='´', codepoint='U+1ffd', name='GREEK OXIA')
 Character(character='῾', codepoint='U+1ffe', name='GREEK DASIA')
+
+
 Character(character='Ꙗ', codepoint='U+a656', name='CYRILLIC CAPITAL LETTER IOTIFIED A')
 Character(character='ꙗ', codepoint='U+a657', name='CYRILLIC SMALL LETTER IOTIFIED A')
