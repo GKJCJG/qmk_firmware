@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_D,   KC_H,   KC_T,   KC_N,   KC_S,    KC_MINS,
              KC_RBRC     ,KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    KC_ENTER,
                                   KC_UP,  KC_DOWN,KC_RALT,KC_RBRC, TT(SYMB),
-             LSFT(KC_0),LSFT(KC_RBRC),
+             LSFT(KC_RBRC),LSFT(KC_0),
              KC_PGUP,
              KC_PGDN,KC_DEL, KC_SPC
     ),
@@ -142,6 +142,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user(void) {
 
 };
+
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//   if (record->event.pressed) {
+//     if (MOD_BIT(KC_RALT)) {
+//       switch (keycode) {
+//         case KC_A:
+//           send_unicode_string("æ");
+//           break;
+//       }
+//     }
+//   }
+//   return true;
+// }
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
