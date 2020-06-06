@@ -13,20 +13,36 @@ bool awaiting_letter = false;
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE,
-  GKJ_ACUTE,
-  GKJ_GRAVE,
-  GKJ_CFLX,
-  GKJ_MCRN,
-  GKJ_TREMA,
-  GKJ_BAR,
-  GKJ_BRV,
-  GKJ_HACEK,
-  GKJ_TILDE,
-  GKJ_DOT,
-  GKJ_RING,
-  GKJ_SMOOTH,
-  GKJ_ROUGH,
-  GKJ_IOTATE
+  GKJ_ACUTE, // /
+  GKJ_GRAVE, // g
+  GKJ_CFLX, // c
+  GKJ_MCRN, // RShft
+  GKJ_TREMA, // -
+  GKJ_BAR, // '
+  GKJ_BRV, // x
+  GKJ_HACEK, // v
+  GKJ_TILDE, // n
+  GKJ_DOT, // .
+  GKJ_RING, // r
+  GKJ_RBLW, // ->
+  GKJ_SMVL, // z
+  GKJ_UBLW, // y
+  GKJ_CDLA, // <-
+  GKJ_OGNK, // ,
+  GKJ_SMTH, // LTHUMB
+  GKJ_ROUGH, // LTHUMB
+  GKJ_IOTA, // LTHUMB
+
+  GKJ_ASH, // a
+  GKJ_OE, // q
+  GKJ_OBAR, // o
+  GKJ_ETH, // d
+  GKJ_THRN, // t
+  GKJ_SZ, // s
+  GKJ_LBAR, // l
+  GKJ_HBAR, // h
+  GKJ_BBAR, // b
+  GKJ_IDOT, // i
 };
 
 uint16_t char_to_send = PLACEHOLDER;
@@ -72,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_EQL,      KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    KC_SLSH,
                           KC_D,   KC_H,   KC_T,   KC_N,   KC_S,    KC_MINS,
              KC_RBRC     ,KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    KC_RSFT,
-                                  KC_UP,  KC_DOWN,KC_RALT,MO(MDIA),TT(SYMB),
+                                  KC_UP,  KC_DOWN,MO(MDIA),KC_RALT,TT(SYMB),
              LSFT(KC_LBRC),LSFT(KC_RBRC),
              KC_GRV,
              KC_DEL,KC_ENTER, KC_SPC
@@ -124,38 +140,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |  BAR | OGNK | DOT  |      |      |      |           |      | UBLW |GRAVE | CFLX | RING | LBAR | ACUTE  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |MsLeft|MsDown|MsRght|      |------|           |------|      |      |      |      |      |  Play  |
+ * |        |  ASH | OBAR |      |      | IDOT |------|           |------|  ETH | HBAR | THRN |TILDE |  SZ  | TREMA  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      | Prev | Next |      |        |
+ * |        |      |  OE  |      |      |  BRV |      |           |      | BBAR |      |      |HACEK | SMVL |  MCRN  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      | Lclk | Rclk |                                       |VolUp |VolDn | Mute |      |      |
+ *   |      |      |      | CDLA | RBLW |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |Brwser|
- *                                 |      |      |------|       |------|      |Back  |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
+ *                                        ,--------------.       ,-------------.
+ *                                        |IOTATE|UC_M_LN|       |      |      |
+ *                                 ,------|------|-------|       |------+------+------.
+ *                                 |      |      |UC_M_WI|       |      |      |      |
+ *                                 |SMOOTH|ROUGH |-------|       |------|      |      |
+ *                                 |      |      |UC_M_MA|       |      |      |      |
+ *                                 `---------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,GKJ_SMOOTH,GKJ_HACEK,GKJ_CFLX,KC_TRNS, KC_TRNS, GKJ_BAR,
-       KC_TRNS, UC(0xe6),KC_TRNS, KC_TRNS, KC_TRNS, GKJ_IOTATE,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                           KC_TRNS, KC_TRNS,
-                                                    KC_TRNS,
-                                  KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, GKJ_BAR, GKJ_OGNK,GKJ_DOT,KC_TRNS, KC_TRNS,  GKJ_BAR,
+       KC_TRNS, GKJ_ASH, GKJ_OBAR,KC_TRNS, KC_TRNS, GKJ_IDOT,
+       KC_TRNS, KC_TRNS, GKJ_OE,  KC_TRNS, KC_TRNS, GKJ_BRV, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, GKJ_CDLA, GKJ_RBLW,
+                                           GKJ_IOTA,UC_M_LN,
+                                                    UC_M_WI,
+                                  GKJ_SMTH,GKJ_ROUGH,UC_M_MA,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,GKJ_RING, GKJ_GRAVE,GKJ_ACUTE,
-                 GKJ_DOT,GKJ_ROUGH,KC_TRNS,GKJ_TILDE,GKJ_MCRN,GKJ_TREMA,
-       KC_TRNS,  GKJ_BRV, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+       KC_TRNS,  GKJ_UBLW,GKJ_GRAVE,GKJ_CFLX,GKJ_RING, GKJ_LBAR,GKJ_ACUTE,
+                 GKJ_ETH, GKJ_HBAR, GKJ_THRN,GKJ_TILDE,GKJ_SZ,  GKJ_TREMA,
+       KC_TRNS,  GKJ_BBAR,KC_TRNS,  KC_TRNS, GKJ_HACEK,GKJ_SMVL,GKJ_MCRN,
+                          KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
@@ -172,6 +188,85 @@ void eeconfig_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    if (awaiting_letter && keycode == KC_SPC) {
+      post_process_record_user(keycode, record);
+      return false;
+    }
+    if (keycode > GKJ_IOTA && keycode <= GKJ_IDOT) {
+      if (get_mods() & MOD_MASK_SHIFT) {
+        switch (keycode) {
+          case GKJ_ASH:
+            send_unicode_string("Æ"); // æ
+            break;
+          case GKJ_OE:
+            send_unicode_string("Œ"); // œ
+            break;
+          case GKJ_OBAR:
+            send_unicode_string("Ø"); // ø
+            break;
+          case GKJ_ETH:
+            send_unicode_string("Ð"); // ð
+            break;
+          case GKJ_THRN:
+            send_unicode_string("Þ"); // þ
+            break;
+          case GKJ_SZ:
+            send_unicode_string("ẞ"); // ß
+            break;
+          case GKJ_LBAR:
+            send_unicode_string("Ł"); // ł
+            break;
+          case GKJ_HBAR:
+            send_unicode_string("Ħ"); // ħ
+            break;
+          case GKJ_BBAR:
+            send_unicode_string("Ƀ"); // ƀ
+            break;
+          case GKJ_IDOT:
+            send_unicode_string("İ"); // ı
+            break;
+        } 
+      } else {
+        switch (keycode) {
+          case GKJ_ASH:
+            send_unicode_string("æ"); // Æ
+            break;
+          case GKJ_OE:
+            send_unicode_string("œ"); // Œ
+            break;
+          case GKJ_OBAR:
+            send_unicode_string("ø"); // Ø
+            break;
+          case GKJ_ETH:
+            send_unicode_string("ð"); // Ð
+            break;
+          case GKJ_THRN:
+            send_unicode_string("þ"); // Þ
+            break;
+          case GKJ_SZ:
+            send_unicode_string("ß"); // ẞ
+            break;
+          case GKJ_LBAR:
+            send_unicode_string("ł"); // Ł
+            break;
+          case GKJ_HBAR:
+            send_unicode_string("ħ"); // Ħ
+            break;
+          case GKJ_BBAR:
+            send_unicode_string("ƀ"); // Ƀ
+            break;
+          case GKJ_IDOT:
+            send_unicode_string("ı"); // İ
+            break;
+        }
+      }
+    }
+  }
+  return true;
+}
+
+void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     if (awaiting_letter) {
       switch (char_to_send) {
@@ -202,27 +297,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case GKJ_RING:
           send_unicode_string("̊");
           break;
+        case GKJ_RBLW:
+          send_unicode_string("̥");
+          break;
+        case GKJ_SMVL:
+          send_unicode_string("̯");
+          break;
+        case GKJ_UBLW:
+          send_unicode_string("̮");
+          break;
+        case GKJ_CDLA:
+          send_unicode_string("̧");
+          break;
+        case GKJ_OGNK:
+          send_unicode_string("̨");
+          break;
         case GKJ_BRV:
           send_unicode_string("̆");
           break;
-        case GKJ_SMOOTH:
+        case GKJ_SMTH:
           send_unicode_string("̓");
           break;
         case GKJ_ROUGH:
           send_unicode_string("̔");
           break;
-        case GKJ_IOTATE:
+        case GKJ_IOTA:
           send_unicode_string("ͅ");
           break;
       }
       char_to_send = PLACEHOLDER;
       awaiting_letter = false;
-    } else if (keycode > PLACEHOLDER && keycode <= GKJ_IOTATE) {
+    } else if (keycode > PLACEHOLDER && keycode <= GKJ_IOTA) {
       char_to_send = keycode;
       awaiting_letter = true;
     } 
   }
-  return true;
 }
 
 // Runs constantly in the background, in a loop.
