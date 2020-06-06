@@ -143,8 +143,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS,GKJ_HACEK,GKJ_CFLX,KC_TRNS, KC_TRNS, GKJ_BAR,
-       KC_TRNS, UC(0xe6),KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,GKJ_SMOOTH,GKJ_HACEK,GKJ_CFLX,KC_TRNS, KC_TRNS, GKJ_BAR,
+       KC_TRNS, UC(0xe6),KC_TRNS, KC_TRNS, KC_TRNS, GKJ_IOTATE,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
@@ -152,9 +152,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GKJ_GRAVE,GKJ_ACUTE,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GKJ_MCRN,GKJ_TREMA,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS,GKJ_RING, GKJ_GRAVE,GKJ_ACUTE,
+                 GKJ_DOT,GKJ_ROUGH,KC_TRNS,GKJ_TILDE,GKJ_MCRN,GKJ_TREMA,
+       KC_TRNS,  GKJ_BRV, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -173,10 +173,6 @@ void eeconfig_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    if (!awaiting_letter && keycode > PLACEHOLDER && keycode <= GKJ_IOTATE) {
-      char_to_send = keycode;
-      awaiting_letter = true;
-    } 
     if (awaiting_letter) {
       switch (char_to_send) {
         case GKJ_ACUTE:
@@ -210,18 +206,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           send_unicode_string("̆");
           break;
         case GKJ_SMOOTH:
-          send_unicode_string("");
+          send_unicode_string("̓");
           break;
         case GKJ_ROUGH:
-          send_unicode_string("");
+          send_unicode_string("̔");
           break;
         case GKJ_IOTATE:
-          send_unicode_string("");
+          send_unicode_string("ͅ");
           break;
       }
       char_to_send = PLACEHOLDER;
       awaiting_letter = false;
-    }
+    } else if (keycode > PLACEHOLDER && keycode <= GKJ_IOTATE) {
+      char_to_send = keycode;
+      awaiting_letter = true;
+    } 
   }
   return true;
 }
