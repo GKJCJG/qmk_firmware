@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  | BckSpc |
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  | PgUp |           | PgDn |   6  |   7  |   8  |   9  |   0  | BckSpc |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |  Tab   |   '  |   ,  |   .  |   P  |   Y  |   \  |           |  =   |   F  |   G  |   C  |   R  |   L  |   /    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -21,37 +21,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
  * | LShift |   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | Enter  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |TTSymb|  Grv | LCtl | LAlt | LGui |                                       |  Up  | Down | RAlt |      |      |
+ *   |TTSymb|  Grv | LCtl | LAlt | LGui |                                       |  Up  | Down | RAlt |MOMdia|TTSymb|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |   (  |   {  |       |  }   |    )   |
+ *                                        |   (  |   )  |       |   {  |    }   |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |      |       | PgUp |        |      |
- *                                 | Home |  End |------|       |------| Delete |Space |
- *                                 |      |      | Entr |       | PgDn |        |      |
+ *                                 |      |      | Home |       |      |        |      |
+ *                                 | LEFT | RIGHT|------|       |------|  Enter | Spce |
+ *                                 |      |      | End  |       |  Del |        |      |
  *                                 `--------------------'       `----------------------'
+ * 
+ * 
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,       KC_1,         KC_2,    KC_3,    KC_4,   KC_5,   KC_HOME,
+        KC_ESC,       KC_1,         KC_2,    KC_3,    KC_4,   KC_5,   KC_PGUP,
         KC_TAB,       KC_QUOT,      KC_COMM, KC_DOT,  KC_P,   KC_Y,   KC_BSLASH,
         KC_BSPC,      KC_A,         KC_O,    KC_E,    KC_U,   KC_I,
         KC_LSFT,      KC_SCLN,      KC_Q,    KC_J,    KC_K,   KC_X,   KC_LBRC,
         TT(SYMB),     KC_GRV,       KC_LCTL, KC_LALT, KC_LGUI,
-                                              LSFT(KC_9),LSFT(KC_LBRC),
-                                                              LSFT(KC_4),
-                                               KC_LEFT,KC_RGHT,KC_ENT,
+                                              LSFT(KC_9),   LSFT(KC_0),
+                                                            KC_HOME,
+                                               KC_LEFT,KC_RGHT,KC_END,
         // right hand
-             KC_END,      KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_BSPC,
+             KC_PGDN,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_BSPC,
              KC_EQL,      KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    KC_SLSH,
                           KC_D,   KC_H,   KC_T,   KC_N,   KC_S,    KC_MINS,
              KC_RBRC     ,KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    KC_RSFT,
-                                  KC_UP,  KC_DOWN,KC_RALT,KC_RBRC, TT(SYMB),
-             LSFT(KC_RBRC),LSFT(KC_0),
-             KC_PGUP,
-             KC_PGDN,KC_DEL, KC_SPC
+                                  KC_UP,  KC_DOWN,KC_RALT,MO(MDIA),TT(SYMB),
+             LSFT(KC_LBRC),LSFT(KC_RBRC),
+             KC_GRV,
+             KC_DEL,KC_ENTER, KC_SPC
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -120,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MDIA] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
+       KC_TRNS, UC(0xe6), KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,
                                            KC_TRNS, KC_TRNS,
@@ -140,8 +142,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
+  set_unicode_input_mode(UC_MAC);
 };
+
+void eeconfig_init_user(void) {
+  set_unicode_input_mode(UC_MAC);
+}
 
 // bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //   if (record->event.pressed) {
