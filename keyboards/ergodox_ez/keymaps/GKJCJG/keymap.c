@@ -9,6 +9,28 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
+bool awaiting_letter = false;
+
+enum custom_keycodes {
+  PLACEHOLDER = SAFE_RANGE,
+  GKJ_ACUTE,
+  GKJ_GRAVE,
+  GKJ_CFLX,
+  GKJ_MCRN,
+  GKJ_TREMA,
+  GKJ_BAR,
+  GKJ_BRV,
+  GKJ_HACEK,
+  GKJ_TILDE,
+  GKJ_DOT,
+  GKJ_RING,
+  GKJ_SMOOTH,
+  GKJ_ROUGH,
+  GKJ_IOTATE
+};
+
+uint16_t char_to_send = PLACEHOLDER;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -121,22 +143,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // MEDIA AND MOUSE
 [MDIA] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, UC(0xe6), KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
+       KC_TRNS, KC_TRNS,GKJ_HACEK,GKJ_CFLX,KC_TRNS, KC_TRNS, GKJ_BAR,
+       KC_TRNS, UC(0xe6),KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GKJ_GRAVE,GKJ_ACUTE,
+                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GKJ_MCRN,GKJ_TREMA,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS,
-                          KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS,
+                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_WBAK
+       KC_TRNS, KC_TRNS, KC_TRNS
 ),
 };
 
@@ -149,18 +171,60 @@ void eeconfig_init_user(void) {
   set_unicode_input_mode(UC_MAC);
 }
 
-// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//   if (record->event.pressed) {
-//     if (MOD_BIT(KC_RALT)) {
-//       switch (keycode) {
-//         case KC_A:
-//           send_unicode_string("æ");
-//           break;
-//       }
-//     }
-//   }
-//   return true;
-// }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    if (!awaiting_letter && keycode > PLACEHOLDER && keycode <= GKJ_IOTATE) {
+      char_to_send = keycode;
+      awaiting_letter = true;
+    } 
+    if (awaiting_letter) {
+      switch (char_to_send) {
+        case GKJ_ACUTE:
+          send_unicode_string("́");
+          break;
+        case GKJ_GRAVE:
+          send_unicode_string("̀");
+          break;
+        case GKJ_CFLX:
+          send_unicode_string("̂");
+          break;
+        case GKJ_MCRN:
+          send_unicode_string("̄");
+          break;
+        case GKJ_TREMA:
+          send_unicode_string("̈");
+          break;
+        case GKJ_BAR:
+          send_unicode_string("̍");
+          break;
+        case GKJ_HACEK:
+          send_unicode_string("̌");
+          break;
+        case GKJ_DOT:
+          send_unicode_string("̇");
+          break;
+        case GKJ_RING:
+          send_unicode_string("̊");
+          break;
+        case GKJ_BRV:
+          send_unicode_string("̆");
+          break;
+        case GKJ_SMOOTH:
+          send_unicode_string("");
+          break;
+        case GKJ_ROUGH:
+          send_unicode_string("");
+          break;
+        case GKJ_IOTATE:
+          send_unicode_string("");
+          break;
+      }
+      char_to_send = PLACEHOLDER;
+      awaiting_letter = false;
+    }
+  }
+  return true;
+}
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
@@ -183,5 +247,4 @@ void matrix_scan_user(void) {
       // none
       break;
   }
-
 };
