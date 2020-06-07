@@ -34,15 +34,301 @@ enum custom_keycodes {
   GKJ_IOTA, // LTHUMB
 
   GKJ_ASH, // a
+  GKJ_U_ASH,
   GKJ_OE, // q
+  GKJ_U_OE,
   GKJ_OBAR, // o
+  GKJ_U_OBAR,
   GKJ_ETH, // d
+  GKJ_U_ETH,
   GKJ_THRN, // t
+  GKJ_U_THRN,
   GKJ_SZ, // s
+  GKJ_U_SZ,
   GKJ_LBAR, // l
+  GKJ_U_LBAR,
   GKJ_HBAR, // h
+  GKJ_U_HBAR,
   GKJ_BBAR, // b
+  GKJ_U_BBAR,
   GKJ_IDOT, // i
+  GKJ_U_IDOT,
+
+
+  GK_A,
+  GK_U_A,
+  GK_B,
+  GK_U_B,
+  GK_G,
+  GK_U_G,
+  GK_D,
+  GK_U_D,
+  GK_E,
+  GK_U_E,
+  GK_Z,
+  GK_U_Z,
+  GK_H,
+  GK_U_H,
+  GK_TH,
+  GK_U_TH,
+  GK_I,
+  GK_U_I,
+  GK_K,
+  GK_U_K,
+  GK_L,
+  GK_U_L,
+  GK_M,
+  GK_U_M,
+  GK_N,
+  GK_U_N,
+  GK_KS,
+  GK_U_KS,
+  GK_O,
+  GK_U_O,
+  GK_P,
+  GK_U_P,
+  GK_R,
+  GK_U_R,
+  GK_S,
+  GK_U_S,
+  GK_T,
+  GK_U_T,
+  GK_Y,
+  GK_U_Y,
+  GK_PH,
+  GK_U_PH,
+  GK_KH,
+  GK_U_KH,
+  GK_PS,
+  GK_U_PS,
+  GK_OO,
+  GK_U_OO,
+  GK_W,
+  GK_U_W,
+  GK_HH,
+  GK_U_HH,
+  
+  R_A,
+  R_U_A,
+  R_B,
+  R_U_B,
+  R_V,
+  R_U_V,
+  R_G,
+  R_U_G,
+  R_D,
+  R_U_D,
+  R_JE,
+  R_U_JE,
+  R_E,
+  R_U_E,
+  R_ZH,
+  R_U_ZH,
+  R_Z,
+  R_U_Z,
+  R_I,
+  R_U_I,
+  R_K,
+  R_U_K,
+  R_L,
+  R_U_L,
+  R_M,
+  R_U_M,
+  R_N,
+  R_U_N,
+  R_O,
+  R_U_O,
+  R_P,
+  R_U_P,
+  R_S,
+  R_U_S,
+  R_T,
+  R_U_T,
+  R_U,
+  R_U_U,
+  R_F,
+  R_U_F,
+  R_H,
+  R_U_H,
+  R_C,
+  R_U_C,
+  R_CH,
+  R_U_CH,
+  R_SH,
+  R_U_SH,
+  R_SHCH,
+  R_U_SHCH,
+  R_HA,
+  R_U_HA,
+  R_Y,
+  R_U_Y,
+  R_SO,
+  R_U_SO,
+  R_YU,
+  R_U_YU,
+  R_YA,
+  R_U_YA,
+  R_IA,
+  R_U_IA,
+  R_IE,
+  R_U_IE,
+  R_EN,
+  R_U_EN,
+  R_ON,
+  R_U_ON,
+  R_IEN,
+  R_U_IEN,
+  R_ION,
+  R_U_ION
+};
+
+const char *up_low_chars[] = {
+  "æ",
+  "Æ",
+  "œ",
+  "Œ",
+  "ø",
+  "Ø",
+  "ð",
+  "Ð",
+  "þ",
+  "Þ",
+  "ß",
+  "ẞ",
+  "ł",
+  "Ł",
+  "ħ",
+  "Ħ",
+  "ƀ",
+  "Ƀ",
+  "ı",
+  "İ",
+
+  "α",
+  "Α",
+  "β",
+  "Β",
+  "γ",
+  "Γ",
+  "δ",
+  "Δ",
+  "ε",
+  "Ε",
+  "ζ",
+  "Ζ",
+  "η",
+  "Η",
+  "θ",
+  "Θ",
+  "ι",
+  "Ι",
+  "κ",
+  "Κ",
+  "λ",
+  "Λ",
+  "μ",
+  "Μ",
+  "ν",
+  "Ν",
+  "ξ",
+  "Ξ",
+  "ο",
+  "Ο",
+  "π",
+  "Π",
+  "ρ",
+  "Ρ",
+  "σ",
+  "Σ",
+  "τ",
+  "Τ",
+  "υ",
+  "Υ",
+  "φ",
+  "Φ",
+  "χ",
+  "Χ",
+  "ψ",
+  "Ψ",
+  "ω",
+  "Ω",
+  "ϝ",
+  "Ϝ",
+  "ͱ",
+  "Ͱ",
+
+  "а"
+  "А",
+  "б",
+  "Б",
+  "в",
+  "В",
+  "г",
+  "Г",
+  "д",
+  "Д",
+  "е",
+  "Е",
+  "э",
+  "Э",
+  "ж",
+  "Ж",
+  "з",
+  "З",
+  "и",
+  "И",
+  "к",
+  "К",
+  "л",
+  "Л",
+  "м",
+  "М",
+  "н",
+  "Н",
+  "о",
+  "О",
+  "п",
+  "П",
+  "с",
+  "С",
+  "т",
+  "Т",
+  "у",
+  "У",
+  "ф",
+  "Ф",
+  "х",
+  "Х",
+  "ц",
+  "Ц",
+  "ч",
+  "Ч",
+  "ш",
+  "Ш",
+  "щ",
+  "Щ",
+  "ъ",
+  "Ъ",
+  "ы",
+  "Ы",
+  "ь",
+  "Ь",
+  "ю",
+  "Ю",
+  "я",
+  "Я",
+  "ꙗ",
+  "Ꙗ",
+  "ѥ",
+  "Ѥ",
+  "ѧ",
+  "Ѧ",
+  "ѫ",
+  "Ѫ",
+  "ѩ",
+  "Ѩ",
+  "ѭ",
+  "Ѭ",
 };
 
 uint16_t char_to_send = PLACEHOLDER;
@@ -193,73 +479,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       post_process_record_user(keycode, record);
       return false;
     }
-    if (keycode > GKJ_IOTA && keycode <= GKJ_IDOT) {
+    if (keycode > GKJ_IOTA && keycode < R_U_ION) {
       if (get_mods() & MOD_MASK_SHIFT) {
-        switch (keycode) {
-          case GKJ_ASH:
-            send_unicode_string("Æ"); // æ
-            break;
-          case GKJ_OE:
-            send_unicode_string("Œ"); // œ
-            break;
-          case GKJ_OBAR:
-            send_unicode_string("Ø"); // ø
-            break;
-          case GKJ_ETH:
-            send_unicode_string("Ð"); // ð
-            break;
-          case GKJ_THRN:
-            send_unicode_string("Þ"); // þ
-            break;
-          case GKJ_SZ:
-            send_unicode_string("ẞ"); // ß
-            break;
-          case GKJ_LBAR:
-            send_unicode_string("Ł"); // ł
-            break;
-          case GKJ_HBAR:
-            send_unicode_string("Ħ"); // ħ
-            break;
-          case GKJ_BBAR:
-            send_unicode_string("Ƀ"); // ƀ
-            break;
-          case GKJ_IDOT:
-            send_unicode_string("İ"); // ı
-            break;
-        } 
+        send_unicode_string(up_low_chars[keycode - GKJ_ASH + 1]);
       } else {
-        switch (keycode) {
-          case GKJ_ASH:
-            send_unicode_string("æ"); // Æ
-            break;
-          case GKJ_OE:
-            send_unicode_string("œ"); // Œ
-            break;
-          case GKJ_OBAR:
-            send_unicode_string("ø"); // Ø
-            break;
-          case GKJ_ETH:
-            send_unicode_string("ð"); // Ð
-            break;
-          case GKJ_THRN:
-            send_unicode_string("þ"); // Þ
-            break;
-          case GKJ_SZ:
-            send_unicode_string("ß"); // ẞ
-            break;
-          case GKJ_LBAR:
-            send_unicode_string("ł"); // Ł
-            break;
-          case GKJ_HBAR:
-            send_unicode_string("ħ"); // Ħ
-            break;
-          case GKJ_BBAR:
-            send_unicode_string("ƀ"); // Ƀ
-            break;
-          case GKJ_IDOT:
-            send_unicode_string("ı"); // İ
-            break;
-        }
+        send_unicode_string(up_low_chars[keycode - GKJ_ASH]);
       }
     }
   }
