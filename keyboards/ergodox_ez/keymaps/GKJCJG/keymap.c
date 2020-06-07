@@ -1,335 +1,19 @@
 // Netable differences vs. the default firmware for the ErgoDox EZ:
 // 1. The Cmd key is now on the right side, making Cmd+Space easier.
-// 2. The media keys work on OSX (But not on Windows).
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
+#include "custom_keycodes.c"
+#include "character_list.c"
 
-#define BASE 0 // default layer
+#define DVORAK 0 // default layer
 #define SYMB 1 // symbols
-#define MDIA 2 // media keys
+#define ACCENTS 2 // Various accents and foreign characters
+#define QWERTY 3
+#define GREEK 4
+#define RUSSIAN 4
 
 bool awaiting_letter = false;
-
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE,
-  GKJ_ACUTE, // /
-  GKJ_GRAVE, // g
-  GKJ_CFLX, // c
-  GKJ_MCRN, // RShft
-  GKJ_TREMA, // -
-  GKJ_BAR, // '
-  GKJ_BRV, // x
-  GKJ_HACEK, // v
-  GKJ_TILDE, // n
-  GKJ_DOT, // .
-  GKJ_RING, // r
-  GKJ_RBLW, // ->
-  GKJ_SMVL, // z
-  GKJ_UBLW, // y
-  GKJ_CDLA, // <-
-  GKJ_OGNK, // ,
-  GKJ_SMTH, // LTHUMB
-  GKJ_ROUGH, // LTHUMB
-  GKJ_IOTA, // LTHUMB
-
-  GKJ_ASH, // a
-  GKJ_U_ASH,
-  GKJ_OE, // q
-  GKJ_U_OE,
-  GKJ_OBAR, // o
-  GKJ_U_OBAR,
-  GKJ_ETH, // d
-  GKJ_U_ETH,
-  GKJ_THRN, // t
-  GKJ_U_THRN,
-  GKJ_SZ, // s
-  GKJ_U_SZ,
-  GKJ_LBAR, // l
-  GKJ_U_LBAR,
-  GKJ_HBAR, // h
-  GKJ_U_HBAR,
-  GKJ_BBAR, // b
-  GKJ_U_BBAR,
-  GKJ_IDOT, // i
-  GKJ_U_IDOT,
-
-
-  GK_A,
-  GK_U_A,
-  GK_B,
-  GK_U_B,
-  GK_G,
-  GK_U_G,
-  GK_D,
-  GK_U_D,
-  GK_E,
-  GK_U_E,
-  GK_Z,
-  GK_U_Z,
-  GK_H,
-  GK_U_H,
-  GK_TH,
-  GK_U_TH,
-  GK_I,
-  GK_U_I,
-  GK_K,
-  GK_U_K,
-  GK_L,
-  GK_U_L,
-  GK_M,
-  GK_U_M,
-  GK_N,
-  GK_U_N,
-  GK_KS,
-  GK_U_KS,
-  GK_O,
-  GK_U_O,
-  GK_P,
-  GK_U_P,
-  GK_R,
-  GK_U_R,
-  GK_S,
-  GK_U_S,
-  GK_T,
-  GK_U_T,
-  GK_Y,
-  GK_U_Y,
-  GK_PH,
-  GK_U_PH,
-  GK_KH,
-  GK_U_KH,
-  GK_PS,
-  GK_U_PS,
-  GK_OO,
-  GK_U_OO,
-  GK_W,
-  GK_U_W,
-  GK_HH,
-  GK_U_HH,
-  
-  R_A,
-  R_U_A,
-  R_B,
-  R_U_B,
-  R_V,
-  R_U_V,
-  R_G,
-  R_U_G,
-  R_D,
-  R_U_D,
-  R_JE,
-  R_U_JE,
-  R_E,
-  R_U_E,
-  R_ZH,
-  R_U_ZH,
-  R_Z,
-  R_U_Z,
-  R_I,
-  R_U_I,
-  R_K,
-  R_U_K,
-  R_L,
-  R_U_L,
-  R_M,
-  R_U_M,
-  R_N,
-  R_U_N,
-  R_O,
-  R_U_O,
-  R_P,
-  R_U_P,
-  R_S,
-  R_U_S,
-  R_T,
-  R_U_T,
-  R_U,
-  R_U_U,
-  R_F,
-  R_U_F,
-  R_H,
-  R_U_H,
-  R_C,
-  R_U_C,
-  R_CH,
-  R_U_CH,
-  R_SH,
-  R_U_SH,
-  R_SHCH,
-  R_U_SHCH,
-  R_HA,
-  R_U_HA,
-  R_Y,
-  R_U_Y,
-  R_SO,
-  R_U_SO,
-  R_YU,
-  R_U_YU,
-  R_YA,
-  R_U_YA,
-  R_IA,
-  R_U_IA,
-  R_IE,
-  R_U_IE,
-  R_EN,
-  R_U_EN,
-  R_ON,
-  R_U_ON,
-  R_IEN,
-  R_U_IEN,
-  R_ION,
-  R_U_ION
-};
-
-const char *up_low_chars[] = {
-  "æ",
-  "Æ",
-  "œ",
-  "Œ",
-  "ø",
-  "Ø",
-  "ð",
-  "Ð",
-  "þ",
-  "Þ",
-  "ß",
-  "ẞ",
-  "ł",
-  "Ł",
-  "ħ",
-  "Ħ",
-  "ƀ",
-  "Ƀ",
-  "ı",
-  "İ",
-
-  "α",
-  "Α",
-  "β",
-  "Β",
-  "γ",
-  "Γ",
-  "δ",
-  "Δ",
-  "ε",
-  "Ε",
-  "ζ",
-  "Ζ",
-  "η",
-  "Η",
-  "θ",
-  "Θ",
-  "ι",
-  "Ι",
-  "κ",
-  "Κ",
-  "λ",
-  "Λ",
-  "μ",
-  "Μ",
-  "ν",
-  "Ν",
-  "ξ",
-  "Ξ",
-  "ο",
-  "Ο",
-  "π",
-  "Π",
-  "ρ",
-  "Ρ",
-  "σ",
-  "Σ",
-  "τ",
-  "Τ",
-  "υ",
-  "Υ",
-  "φ",
-  "Φ",
-  "χ",
-  "Χ",
-  "ψ",
-  "Ψ",
-  "ω",
-  "Ω",
-  "ϝ",
-  "Ϝ",
-  "ͱ",
-  "Ͱ",
-
-  "а"
-  "А",
-  "б",
-  "Б",
-  "в",
-  "В",
-  "г",
-  "Г",
-  "д",
-  "Д",
-  "е",
-  "Е",
-  "э",
-  "Э",
-  "ж",
-  "Ж",
-  "з",
-  "З",
-  "и",
-  "И",
-  "к",
-  "К",
-  "л",
-  "Л",
-  "м",
-  "М",
-  "н",
-  "Н",
-  "о",
-  "О",
-  "п",
-  "П",
-  "с",
-  "С",
-  "т",
-  "Т",
-  "у",
-  "У",
-  "ф",
-  "Ф",
-  "х",
-  "Х",
-  "ц",
-  "Ц",
-  "ч",
-  "Ч",
-  "ш",
-  "Ш",
-  "щ",
-  "Щ",
-  "ъ",
-  "Ъ",
-  "ы",
-  "Ы",
-  "ь",
-  "Ь",
-  "ю",
-  "Ю",
-  "я",
-  "Я",
-  "ꙗ",
-  "Ꙗ",
-  "ѥ",
-  "Ѥ",
-  "ѧ",
-  "Ѧ",
-  "ѫ",
-  "Ѫ",
-  "ѩ",
-  "Ѩ",
-  "ѭ",
-  "Ѭ",
-};
 
 uint16_t char_to_send = PLACEHOLDER;
 
@@ -343,23 +27,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | BckSpc |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  |   -    |
  * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
- * | LShift |   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | Enter  |
+ * | LShift |   ;  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | Shift  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |TTSymb|  Grv | LCtl | LAlt | LGui |                                       |  Up  | Down | RAlt |MOMdia|TTSymb|
+ *   |TTSymb|  Grv | LCtl | LAlt | LGui |                                       |  Up  | Down |MOMdia| RAlt |DFQWERT|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |   (  |   )  |       |   {  |    }   |
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | Home |       |      |        |      |
- *                                 | LEFT | RIGHT|------|       |------|  Enter | Spce |
- *                                 |      |      | End  |       |  Del |        |      |
- *                                 `--------------------'       `----------------------'
+ *                                        |   (  |   )  |       |   {  |   }   |
+ *                                 ,------|------|------|       |------+-------+------.
+ *                                 |      |      | Home |       |   `  |       |      |
+ *                                 | LEFT | RIGHT|------|       |------| Enter | Spce |
+ *                                 |      |      | End  |       |  Del |       |      |
+ *                                 `--------------------'       `---------------------'
  * 
  * 
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = LAYOUT_ergodox(  // layer 0 : default
+[DVORAK] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_ESC,       KC_1,         KC_2,    KC_3,    KC_4,   KC_5,   KC_PGUP,
         KC_TAB,       KC_QUOT,      KC_COMM, KC_DOT,  KC_P,   KC_Y,   KC_BSLASH,
@@ -374,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_EQL,      KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    KC_SLSH,
                           KC_D,   KC_H,   KC_T,   KC_N,   KC_S,    KC_MINS,
              KC_RBRC     ,KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    KC_RSFT,
-                                  KC_UP,  KC_DOWN,MO(MDIA),KC_RALT,TT(SYMB),
+                                  KC_UP,  KC_DOWN,MO(ACCENTS),KC_RALT,DF(QWERTY),
              LSFT(KC_LBRC),LSFT(KC_RBRC),
              KC_GRV,
              KC_DEL,KC_ENTER, KC_SPC
@@ -443,8 +127,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `---------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[MDIA] = LAYOUT_ergodox(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+[ACCENTS] = LAYOUT_ergodox(
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(RUSSIAN), TG(GREEK),
        KC_TRNS, GKJ_BAR, GKJ_OGNK,GKJ_DOT,KC_TRNS, KC_TRNS,  GKJ_BAR,
        KC_TRNS, GKJ_ASH, GKJ_OBAR,KC_TRNS, KC_TRNS, GKJ_IDOT,
        KC_TRNS, KC_TRNS, GKJ_OE,  KC_TRNS, KC_TRNS, GKJ_BRV, KC_TRNS,
@@ -461,6 +145,78 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+/* Keymap 0: Basic layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  | PgUp |           | PgDn |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |  Tab   |   Q  |   W  |   E  |   R  |   T  |   \  |           |  =   |   Y  |   U  |   I  |   O  |   P  |   [    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | BckSpc |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
+ * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | Shift  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |TTSymb|  Grv | LCtl | LAlt | LGui |                                       |  Up  | Down | RAlt |MOMdia|DFDVOR|
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |   (  |   )  |       |   {  |   }   |
+ *                                 ,------|------|------|       |------+-------+------.
+ *                                 |      |      | Home |       |  `   |       |      |
+ *                                 | LEFT | RIGHT|------|       |------| Enter | Spce |
+ *                                 |      |      | End  |       |  Del |       |      |
+ *                                 `--------------------'       `---------------------'
+ * 
+ * 
+ */
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
+[QWERTY] = LAYOUT_ergodox(  // layer 3 : Optional Default
+        // left hand
+        KC_ESC,       KC_1,         KC_2,    KC_3,    KC_4,   KC_5,   KC_PGUP,
+        KC_TAB,       KC_Q,         KC_W,    KC_E,    KC_R,   KC_T,   KC_BSLASH,
+        KC_BSPC,      KC_A,         KC_S,    KC_D,    KC_F,   KC_G,
+        KC_LSFT,      KC_Z,         KC_X,    KC_C,    KC_V,   KC_B,   KC_LBRC,
+        TT(SYMB),     KC_GRV,       KC_LCTL, KC_LALT, KC_LGUI,
+                                              LSFT(KC_9),   LSFT(KC_0),
+                                                            KC_HOME,
+                                               KC_LEFT,KC_RGHT,KC_END,
+        // right hand
+             KC_PGDN,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_MINS,
+             KC_EQL,      KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    KC_RBRC,
+                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_MINS,
+             KC_RBRC,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH, KC_RSFT,
+                                  KC_UP,  KC_DOWN,MO(ACCENTS),KC_RALT,DF(DVORAK),
+             LSFT(KC_LBRC),LSFT(KC_RBRC),
+             KC_GRV,
+             KC_DEL,KC_ENTER, KC_SPC
+    ),
+
+[GREEK] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GK_P,    GK_TH,   KC_TRNS,     KC_TRNS,  GK_PH,   GK_G,    GK_KS,   GK_R,    GK_L,    KC_TRNS,
+  KC_TRNS, GK_A,    GK_O,    GK_E,    GK_Y,    GK_I,                           GK_D,    GK_HH,   GK_T,    GK_N,    GK_S,    KC_TRNS,
+  KC_TRNS, KC_TRNS, GK_OO,   GK_PS,   GK_K,    GK_KH,   GKJ_IOTA,    GKJ_TREMA,GK_B,    GK_M,    GK_W,    GK_SF,   GK_Z,    KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+                                              GKJ_ACUTE,GKJ_GRAVE,   GKJ_SMTH, GKJ_ROUGH,
+                                                        KC_TRNS,     GKJ_CFLX,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+[RUSSIAN] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_TRNS, R_YA,    KC_TRNS, R_E,     R_YU,    KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, R_P,     R_Y,     KC_TRNS,     KC_TRNS,  R_F,     R_G,     R_C,     R_R,     R_L,     KC_TRNS,
+  KC_TRNS, R_A,     R_O,     R_JE,    R_U,     R_I,                            R_D,     R_H,     R_T,     R_N,     R_S,     KC_TRNS,
+  KC_TRNS, KC_TRNS, R_SHCH,  R_SO,    R_K,     R_CH,    R_HA,        KC_TRNS   R_B,     R_M,     R_SH,    R_V,     R_Z,     KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+                                               R_IA,    R_IE,        R_EN,    R_ON,
+                                                        R_IEN,       R_ION,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
 ),
 };
 
@@ -558,25 +314,77 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
+// Runs just one time when the keyboard initializes.
+void keyboard_post_init_user(void) {
+#ifdef RGBLIGHT_COLOR_LAYER_0
+  rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+#endif
+};
 
-  uint8_t layer = biton32(layer_state);
-
+// Runs whenever there is a layer state change.
+layer_state_t layer_state_set_user(layer_state_t state) {
   ergodox_board_led_off();
   ergodox_right_led_1_off();
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
+
+  uint8_t layer = get_highest_layer(state);
   switch (layer) {
-    // TODO: Make this relevant to the ErgoDox EZ.
-    case SYMB:
-      ergodox_right_led_1_on();
-      break;
-    case MDIA:
-      ergodox_right_led_2_on();
-      break;
-    default:
-      // none
-      break;
-  }
+      case 0:
+        #ifdef RGBLIGHT_COLOR_LAYER_0
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+        #endif
+        break;
+      case 1:
+        ergodox_right_led_1_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_1
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+        #endif
+        break;
+      case 2:
+        ergodox_right_led_2_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_2
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+        #endif
+        break;
+      case 3:
+        ergodox_right_led_3_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_3
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+        #endif
+        break;
+      case 4:
+        ergodox_right_led_1_on();
+        ergodox_right_led_2_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_4
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+        #endif
+        break;
+      case 5:
+        ergodox_right_led_1_on();
+        ergodox_right_led_3_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_5
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+        #endif
+        break;
+      case 6:
+        ergodox_right_led_2_on();
+        ergodox_right_led_3_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_6
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
+        #endif
+        break;
+      case 7:
+        ergodox_right_led_1_on();
+        ergodox_right_led_2_on();
+        ergodox_right_led_3_on();
+        #ifdef RGBLIGHT_COLOR_LAYER_7
+          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_7);
+        #endif
+        break;
+      default:
+        break;
+    }
+
+  return state;
 };
