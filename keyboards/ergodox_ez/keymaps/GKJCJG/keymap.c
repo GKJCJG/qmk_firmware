@@ -7,11 +7,11 @@
 #include "character_list.c"
 
 #define DVORAK 0 // default layer
-#define SYMB 1 // symbols
-#define ACCENTS 2 // Various accents and foreign characters
-#define GREEK 3
-#define RUSSIAN 4
-#define QWERTY 5
+#define QWERTY 1
+#define GREEK 2
+#define RUSSIAN 3
+#define SYMB 4 // symbols
+#define ACCENTS 5 // Various accents and foreign characters
 
 bool awaiting_letter = false;
 
@@ -63,6 +63,80 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_GRV,
              KC_DEL,KC_ENTER, KC_SPC
     ),
+
+
+/* Keymap 0: Basic layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  | PgUp |           | PgDn |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |  Tab   |   Q  |   W  |   E  |   R  |   T  |   \  |           |  =   |   Y  |   U  |   I  |   O  |   P  |   [    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | BckSpc |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
+ * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | Shift  |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |TTSymb|  Grv | LCtl | LAlt | LGui |                                       |  Up  | Down | RAlt |MOMdia|DFDVOR|
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |   (  |   )  |       |   {  |   }   |
+ *                                 ,------|------|------|       |------+-------+------.
+ *                                 |      |      | Home |       |  `   |       |      |
+ *                                 | LEFT | RIGHT|------|       |------| Enter | Spce |
+ *                                 |      |      | End  |       |  Del |       |      |
+ *                                 `--------------------'       `---------------------'
+ * 
+ * 
+ */
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
+[QWERTY] = LAYOUT_ergodox(  // layer 3 : Optional Default
+        // left hand
+        KC_ESC,       KC_1,         KC_2,    KC_3,    KC_4,   KC_5,   KC_PGUP,
+        KC_TAB,       KC_Q,         KC_W,    KC_E,    KC_R,   KC_T,   KC_BSLASH,
+        KC_BSPC,      KC_A,         KC_S,    KC_D,    KC_F,   KC_G,
+        KC_LSFT,      KC_Z,         KC_X,    KC_C,    KC_V,   KC_B,   KC_LBRC,
+        TT(SYMB),     KC_GRV,       KC_LCTL, KC_LALT, KC_LGUI,
+                                              LSFT(KC_9),   LSFT(KC_0),
+                                                            KC_HOME,
+                                               KC_LEFT,KC_RGHT,KC_END,
+        // right hand
+             KC_PGDN,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_MINS,
+             KC_EQL,      KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    KC_RBRC,
+                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_QUOT,
+             KC_RBRC,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH, KC_RSFT,
+                                  KC_UP,  KC_DOWN,MO(ACCENTS),KC_RALT,DF(DVORAK),
+             LSFT(KC_LBRC),LSFT(KC_RBRC),
+             KC_GRV,
+             KC_DEL,KC_ENTER, KC_SPC
+    ),
+
+[GREEK] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GK_P,    GK_TH,   KC_TRNS,     KC_TRNS,  GK_PH,   GK_G,    GK_KS,   GK_R,    GK_L,    KC_TRNS,
+  KC_TRNS, GK_A,    GK_O,    GK_E,    GK_Y,    GK_I,                           GK_D,    GK_HH,   GK_T,    GK_N,    GK_S,    KC_TRNS,
+  KC_TRNS, KC_TRNS, GK_OO,   GK_PS,   GK_K,    GK_KH,   GKJ_IOTA,    GKJ_TREMA,GK_B,    GK_M,    GK_W,    GK_SF,   GK_Z,    KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+                                              GKJ_ACUTE,GKJ_GRAVE,   GKJ_SMTH, GKJ_ROUGH,
+                                                        KC_TRNS,     GKJ_CFLX,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+[RUSSIAN] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_TRNS, R_YA,    KC_TRNS, R_E,     R_YU,    KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, R_P,     R_Y,     KC_TRNS,     KC_TRNS,  R_F,     R_G,     R_C,     R_R,     R_L,     KC_TRNS,
+  KC_TRNS, R_A,     R_O,     R_JE,    R_U,     R_I,                            R_D,     R_H,     R_T,     R_N,     R_S,     KC_TRNS,
+  KC_TRNS, KC_TRNS, R_SHCH,  R_SO,    R_K,     R_CH,    R_HA,        KC_TRNS,   R_B,     R_M,     R_SH,    R_V,     R_Z,     KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+                                               R_IA,    R_IE,        R_EN,    R_ON,
+                                                        R_IEN,       R_ION,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+),
+
 /* Keymap 1: Symbol Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -146,78 +220,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-
-[GREEK] = LAYOUT_ergodox_pretty(
-  // left hand
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GK_P,    GK_TH,   KC_TRNS,     KC_TRNS,  GK_PH,   GK_G,    GK_KS,   GK_R,    GK_L,    KC_TRNS,
-  KC_TRNS, GK_A,    GK_O,    GK_E,    GK_Y,    GK_I,                           GK_D,    GK_HH,   GK_T,    GK_N,    GK_S,    KC_TRNS,
-  KC_TRNS, KC_TRNS, GK_OO,   GK_PS,   GK_K,    GK_KH,   GKJ_IOTA,    GKJ_TREMA,GK_B,    GK_M,    GK_W,    GK_SF,   GK_Z,    KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-
-                                              GKJ_ACUTE,GKJ_GRAVE,   GKJ_SMTH, GKJ_ROUGH,
-                                                        KC_TRNS,     GKJ_CFLX,
-                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
-),
-
-[RUSSIAN] = LAYOUT_ergodox_pretty(
-  // left hand
-  KC_TRNS, R_YA,    KC_TRNS, R_E,     R_YU,    KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, R_P,     R_Y,     KC_TRNS,     KC_TRNS,  R_F,     R_G,     R_C,     R_R,     R_L,     KC_TRNS,
-  KC_TRNS, R_A,     R_O,     R_JE,    R_U,     R_I,                            R_D,     R_H,     R_T,     R_N,     R_S,     KC_TRNS,
-  KC_TRNS, KC_TRNS, R_SHCH,  R_SO,    R_K,     R_CH,    R_HA,        KC_TRNS,   R_B,     R_M,     R_SH,    R_V,     R_Z,     KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-
-                                               R_IA,    R_IE,        R_EN,    R_ON,
-                                                        R_IEN,       R_ION,
-                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
-),
-
-/* Keymap 0: Basic layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   |   1  |   2  |   3  |   4  |   5  | PgUp |           | PgDn |   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |  Tab   |   Q  |   W  |   E  |   R  |   T  |   \  |           |  =   |   Y  |   U  |   I  |   O  |   P  |   [    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | BckSpc |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
- * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | Shift  |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |TTSymb|  Grv | LCtl | LAlt | LGui |                                       |  Up  | Down | RAlt |MOMdia|DFDVOR|
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |   (  |   )  |       |   {  |   }   |
- *                                 ,------|------|------|       |------+-------+------.
- *                                 |      |      | Home |       |  `   |       |      |
- *                                 | LEFT | RIGHT|------|       |------| Enter | Spce |
- *                                 |      |      | End  |       |  Del |       |      |
- *                                 `--------------------'       `---------------------'
- * 
- * 
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[QWERTY] = LAYOUT_ergodox(  // layer 3 : Optional Default
-        // left hand
-        KC_ESC,       KC_1,         KC_2,    KC_3,    KC_4,   KC_5,   KC_PGUP,
-        KC_TAB,       KC_Q,         KC_W,    KC_E,    KC_R,   KC_T,   KC_BSLASH,
-        KC_BSPC,      KC_A,         KC_S,    KC_D,    KC_F,   KC_G,
-        KC_LSFT,      KC_Z,         KC_X,    KC_C,    KC_V,   KC_B,   KC_LBRC,
-        TT(SYMB),     KC_GRV,       KC_LCTL, KC_LALT, KC_LGUI,
-                                              LSFT(KC_9),   LSFT(KC_0),
-                                                            KC_HOME,
-                                               KC_LEFT,KC_RGHT,KC_END,
-        // right hand
-             KC_PGDN,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_MINS,
-             KC_EQL,      KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    KC_RBRC,
-                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_QUOT,
-             KC_RBRC,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH, KC_RSFT,
-                                  KC_UP,  KC_DOWN,MO(ACCENTS),KC_RALT,DF(DVORAK),
-             LSFT(KC_LBRC),LSFT(KC_RBRC),
-             KC_GRV,
-             KC_DEL,KC_ENTER, KC_SPC
-    ),
 };
 
 // Runs just one time when the keyboard initializes.
