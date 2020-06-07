@@ -9,9 +9,9 @@
 #define DVORAK 0 // default layer
 #define SYMB 1 // symbols
 #define ACCENTS 2 // Various accents and foreign characters
-#define QWERTY 3
-#define GREEK 4
-#define RUSSIAN 5
+#define GREEK 3
+#define RUSSIAN 4
+#define QWERTY 5
 
 bool awaiting_letter = false;
 
@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     UC_M_WI,
                                   GKJ_SMTH,GKJ_ROUGH,UC_M_MA,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  TO(RUSSIAN), TO(GREEK),
+       KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  TG(RUSSIAN), TG(GREEK),
        KC_TRNS,  GKJ_UBLW,GKJ_GRAVE,GKJ_CFLX,GKJ_RING, GKJ_LBAR,GKJ_ACUTE,
                  GKJ_ETH, GKJ_HBAR, GKJ_THRN,GKJ_TILDE,GKJ_SZ,  GKJ_TREMA,
        KC_TRNS,  GKJ_BBAR,KC_TRNS,  KC_TRNS, GKJ_HACEK,GKJ_SMVL,GKJ_MCRN,
@@ -145,6 +145,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS,
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+[GREEK] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GK_P,    GK_TH,   KC_TRNS,     KC_TRNS,  GK_PH,   GK_G,    GK_KS,   GK_R,    GK_L,    KC_TRNS,
+  KC_TRNS, GK_A,    GK_O,    GK_E,    GK_Y,    GK_I,                           GK_D,    GK_HH,   GK_T,    GK_N,    GK_S,    KC_TRNS,
+  KC_TRNS, KC_TRNS, GK_OO,   GK_PS,   GK_K,    GK_KH,   GKJ_IOTA,    GKJ_TREMA,GK_B,    GK_M,    GK_W,    GK_SF,   GK_Z,    KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+                                              GKJ_ACUTE,GKJ_GRAVE,   GKJ_SMTH, GKJ_ROUGH,
+                                                        KC_TRNS,     GKJ_CFLX,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
+),
+
+[RUSSIAN] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_TRNS, R_YA,    KC_TRNS, R_E,     R_YU,    KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, R_P,     R_Y,     KC_TRNS,     KC_TRNS,  R_F,     R_G,     R_C,     R_R,     R_L,     KC_TRNS,
+  KC_TRNS, R_A,     R_O,     R_JE,    R_U,     R_I,                            R_D,     R_H,     R_T,     R_N,     R_S,     KC_TRNS,
+  KC_TRNS, KC_TRNS, R_SHCH,  R_SO,    R_K,     R_CH,    R_HA,        KC_TRNS,   R_B,     R_M,     R_SH,    R_V,     R_Z,     KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+                                               R_IA,    R_IE,        R_EN,    R_ON,
+                                                        R_IEN,       R_ION,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 /* Keymap 0: Basic layer
@@ -185,39 +211,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // right hand
              KC_PGDN,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_MINS,
              KC_EQL,      KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    KC_RBRC,
-                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_MINS,
+                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_QUOT,
              KC_RBRC,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH, KC_RSFT,
                                   KC_UP,  KC_DOWN,MO(ACCENTS),KC_RALT,DF(DVORAK),
              LSFT(KC_LBRC),LSFT(KC_RBRC),
              KC_GRV,
              KC_DEL,KC_ENTER, KC_SPC
     ),
-
-[GREEK] = LAYOUT_ergodox_pretty(
-  // left hand
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GK_P,    GK_TH,   KC_TRNS,     KC_TRNS,  GK_PH,   GK_G,    GK_KS,   GK_R,    GK_L,    KC_TRNS,
-  KC_TRNS, GK_A,    GK_O,    GK_E,    GK_Y,    GK_I,                           GK_D,    GK_HH,   GK_T,    GK_N,    GK_S,    KC_TRNS,
-  KC_TRNS, KC_TRNS, GK_OO,   GK_PS,   GK_K,    GK_KH,   GKJ_IOTA,    GKJ_TREMA,GK_B,    GK_M,    GK_W,    GK_SF,   GK_Z,    KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-
-                                              GKJ_ACUTE,GKJ_GRAVE,   GKJ_SMTH, GKJ_ROUGH,
-                                                        KC_TRNS,     GKJ_CFLX,
-                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
-),
-
-[RUSSIAN] = LAYOUT_ergodox_pretty(
-  // left hand
-  KC_TRNS, R_YA,    KC_TRNS, R_E,     R_YU,    KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, R_P,     R_Y,     KC_TRNS,     KC_TRNS,  R_F,     R_G,     R_C,     R_R,     R_L,     KC_TRNS,
-  KC_TRNS, R_A,     R_O,     R_JE,    R_U,     R_I,                            R_D,     R_H,     R_T,     R_N,     R_S,     KC_TRNS,
-  KC_TRNS, KC_TRNS, R_SHCH,  R_SO,    R_K,     R_CH,    R_HA,        KC_TRNS,   R_B,     R_M,     R_SH,    R_V,     R_Z,     KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-
-                                               R_IA,    R_IE,        R_EN,    R_ON,
-                                                        R_IEN,       R_ION,
-                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
-),
 };
 
 // Runs just one time when the keyboard initializes.
