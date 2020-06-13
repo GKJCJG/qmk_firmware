@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |   (  |   )  |       |   {  |   }   |
  *                                 ,------|------|------|       |------+-------+------.
  *                                 |      |      | Home |       |   `  |       |      |
- *                                 | LEFT | RIGHT|------|       |------| Enter | Spce |
+ *                                 | Spce | Enter|------|       |------| Left  |Right |
  *                                 |      |      | End  |       |  Del |       |      |
  *                                 `--------------------'       `---------------------'
  * 
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,      KC_SCLN,      KC_Q,    KC_J,    KC_K,   KC_X,   KC_LBRC,
         KC_BSPC,       KC_GRV,       KC_LCTL, KC_LALT, KC_LGUI,
                                                       KC_LPRN, KC_RPRN,
-                                                               KC_HOME,
-                                              KC_LEFT,KC_RGHT, KC_END,
+                                                               KC_GRV,
+                                              KC_SPC,KC_ENTER, KC_DEL,
         // right hand
              KC_PGDN,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_BSPC,
              KC_EQL,      KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    KC_SLSH,
@@ -60,8 +60,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_RBRC     ,KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    KC_RSFT,
                                   KC_UP,  KC_DOWN,MO(ACCENTS),KC_RALT,DF(QWERTY),
              KC_LCBR, KC_RCBR,
-             KC_GRV,
-             KC_DEL,  KC_ENTER, KC_SPC
+             KC_HOME,
+             KC_END,  KC_LEFT, KC_RGHT
     ),
 
 
@@ -81,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        |   (  |   )  |       |   {  |   }   |
  *                                 ,------|------|------|       |------+-------+------.
- *                                 |      |      | Home |       |  `   |       |      |
- *                                 | LEFT | RIGHT|------|       |------| Enter | Spce |
+ *                                 |      |      | Home |       |   `  |       |      |
+ *                                 | Spce | Enter|------|       |------| Left  |Right |
  *                                 |      |      | End  |       |  Del |       |      |
  *                                 `--------------------'       `---------------------'
  * 
@@ -97,18 +97,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,      KC_A,         KC_S,    KC_D,    KC_F,   KC_G,
         KC_LSFT,      KC_Z,         KC_X,    KC_C,    KC_V,   KC_B,   KC_LBRC,
         TT(SYMB),     KC_GRV,       KC_LCTL, KC_LALT, KC_LGUI,
-                                              KC_LPRN,   KC_RPRN,
-                                                            KC_HOME,
-                                               KC_LEFT,KC_RGHT,KC_END,
+                                              KC_LPRN, KC_RPRN,
+                                                               KC_GRV,
+                                              KC_SPC,KC_ENTER, KC_DEL,
         // right hand
              KC_PGDN,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_MINS,
              KC_EQL,      KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,    KC_RBRC,
                           KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN, KC_QUOT,
              KC_RBRC,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH, KC_RSFT,
                                   KC_UP,  KC_DOWN,MO(ACCENTS),KC_RALT,DF(DVORAK),
-             KC_LCBR,KC_RCBR,
-             KC_GRV,
-             KC_DEL,KC_ENTER, KC_SPC
+             KC_LCBR, KC_RCBR,
+             KC_HOME,
+             KC_END,  KC_LEFT, KC_RGHT
     ),
 
 [GREEK] = LAYOUT_ergodox_pretty(
