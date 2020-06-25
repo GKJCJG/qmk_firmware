@@ -8,10 +8,11 @@
 
 #define DVORAK 0 // default layer
 #define QWERTY 1
-#define GREEK 2
-#define RUSSIAN 3
-#define SYMB 4 // symbols
-#define ACCENTS 5 // Various accents and foreign characters
+#define ANKI 2
+#define GREEK 3
+#define RUSSIAN 4
+#define SYMB 5 // symbols
+#define ACCENTS 6 // Various accents and foreign characters
 
 bool awaiting_letter = false;
 
@@ -111,6 +112,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_END,  KC_LEFT, KC_RGHT
     ),
 
+[ANKI] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_Y,      KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,       KC_TRNS,                          KC_D,    KC_ENT,  KC_T,    KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, G(KZ),   KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+                                                    KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS,
+                                                             KC_TRNS,     KC_TRNS,
+                                           KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_ENT
+),
+
 [GREEK] = LAYOUT_ergodox_pretty(
   // left hand
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -182,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |TGRUSS| TGGREEK|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |  BAR | OGNK | DOT  |      |      |      |           |      | UBLW |GRAVE | CFLX | RING | LBAR | ACUTE  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
