@@ -7,12 +7,13 @@
 #include "character_list.c"
 
 #define DVORAK 0 // default layer
-#define QWERTY 1
-#define ANKI 2
-#define GREEK 3
-#define RUSSIAN 4
-#define SYMB 5 // symbols
-#define ACCENTS 6 // Various accents and foreign characters
+#define DV_WORK 1
+#define QWERTY 2
+#define ANKI 3
+#define GREEK 4
+#define RUSSIAN 5
+#define SYMB 6 // symbols
+#define ACCENTS 7 // Various accents and foreign characters
 
 bool awaiting_letter = false;
 
@@ -60,6 +61,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_D,   KC_H,   KC_T,   KC_N,   KC_S,    KC_MINS,
              KC_RBRC     ,KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    MO(SYMB),
                                   KC_UP,  KC_DOWN,MO(ACCENTS),KC_RALT,DF(QWERTY),
+             KC_LCBR, KC_RCBR,
+             KC_HOME,
+             KC_END,  KC_LEFT, KC_RGHT
+    ),
+
+[DV_WORK] = LAYOUT_ergodox(  // layer 0 : default
+        // left hand
+        KC_ESC,       KC_1,         KC_2,    KC_3,    KC_4,   KC_5,   KC_PGUP,
+        KC_TAB,       KC_QUOT,      KC_COMM, KC_DOT,  KC_P,   KC_Y,   KC_BSLASH,
+        KC_RSFT,      KC_A,         KC_O,    KC_E,    KC_U,   KC_I,
+        KC_LSFT,      KC_SCLN,      KC_Q,    KC_J,    KC_K,   KC_X,   KC_LBRC,
+        KC_BSPC,      KC_GRV,       KC_LGUI, KC_LALT, KC_LCTL,
+                                                      KC_LPRN, KC_RPRN,
+                                                               KC_GRV,
+                                              KC_SPC,KC_ENTER, KC_DEL,
+        // right hand
+             KC_PGDN,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_BSPC,
+             KC_EQL,      KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    KC_SLSH,
+                          KC_D,   KC_H,   KC_T,   KC_N,   KC_S,    KC_MINS,
+             KC_RBRC     ,KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    MO(SYMB),
+                                  KC_UP,  KC_DOWN,MO(ACCENTS),KC_RALT,DF(DVORAK),
              KC_LCBR, KC_RCBR,
              KC_HOME,
              KC_END,  KC_LEFT, KC_RGHT
@@ -117,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_Y,      KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,       KC_TRNS,                          KC_D,    KC_ENT,  KC_T,    KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, G(KZ),   KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, G(KC_Z), KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 
                                                     KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS,
@@ -196,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |TGRUSS| TGGREEK|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |TGANKI|TGRUSS| TGGREEK|
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |  BAR | OGNK | DOT  |      |      |      |           |      | UBLW |GRAVE | CFLX | RING | LBAR | ACUTE  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -225,7 +247,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     UC_M_WI,
                                   GKJ_SMTH,GKJ_ROUGH,UC_M_MA,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,  TG(RUSSIAN), TG(GREEK),
+       KC_TRNS,  KC_TRNS, KC_TRNS,  DF(DV_WORK), TG(ANKI), TG(RUSSIAN), TG(GREEK),
        KC_TRNS,  GKJ_UBLW,GKJ_GRAVE,GKJ_CFLX,GKJ_RING, GKJ_LBAR,GKJ_ACUTE,
                  GKJ_ETH, GKJ_HBAR, GKJ_THRN,GKJ_TILDE,GKJ_SZ,  GKJ_TREMA,
        KC_TRNS,  GKJ_BBAR,KC_TRNS,  KC_TRNS, GKJ_HACEK,GKJ_SMVL,GKJ_MCRN,
