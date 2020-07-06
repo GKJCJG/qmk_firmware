@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | Shift  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |MOSymb|  Grv | LCtl | LAlt | LGui |                                       |  Up  | Down | RAlt |MOMdia|DFDVOR|
+ *   |MOSymb|  Grv | LCtl | LAlt | LGui |                                       |  Up  | Down | RAlt |MOAcce|DFDVOR|
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |   (  |   )  |       |   {  |   }   |
@@ -285,7 +285,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
+  if (!(record->event.pressed) && (keycode < QK_MOMENTARY || keycode > QK_MOMENTARY_MAX)) { // Will fire after the release of the character after the accent is triggered.
     if (awaiting_letter) {
       switch (char_to_send) {
         case GKJ_ACUTE:
