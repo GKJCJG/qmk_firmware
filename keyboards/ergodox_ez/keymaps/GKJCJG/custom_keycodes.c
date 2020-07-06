@@ -40,6 +40,8 @@ enum custom_keycodes {
   GKJ_U_BBAR,
   GKJ_IDOT, // i
   GKJ_U_IDOT,
+  GKJ_OKINA, // ;
+  GKJ_U_OKINA, // hamza
 
 
   GK_A,
@@ -149,7 +151,7 @@ enum custom_keycodes {
   R_U_SH,
   R_SHCH, //
   R_U_SHCH,
-  R_HA, // HART SIGN
+  R_HA, // HARD SIGN
   R_U_HA,
   R_Y, //
   R_U_Y,

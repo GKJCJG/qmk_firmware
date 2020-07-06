@@ -188,11 +188,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
+ *                                 ,------|------|------|       |------+------+-------.
+ *                                 |      |      |      |       |      |      |       |
+ *                                 |      |      |------|       |------|KC_INS|KC_PENT|
+ *                                 |      |      |      |       |      |      |       |
+ *                                 `--------------------'       `---------------------'
  */
 // SYMBOLS
 [SYMB] = LAYOUT_ergodox(
@@ -213,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          KC_TRNS,KC_TRNS, KC_0,    KC_DOT,  KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS
+       KC_TRNS, KC_INS,  KC_PENT
 ),
 /* Keymap 2: Media and mouse keys
  *
@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |  ASH | OBAR |      |      | IDOT |------|           |------|  ETH | HBAR | THRN |TILDE |  SZ  | TREMA  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |  OE  |      |      |  BRV |      |           |      | BBAR |      |      |HACEK | SMVL |  MCRN  |
+ * |        | OKINA|  OE  |      |      |  BRV |      |           |      | BBAR |      |      |HACEK | SMVL |  MCRN  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      | CDLA | RBLW |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -238,11 +238,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [ACCENTS] = LAYOUT_ergodox(
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, GKJ_BAR, GKJ_OGNK,GKJ_DOT,KC_TRNS, KC_TRNS,  GKJ_BAR,
-       KC_TRNS, GKJ_ASH, GKJ_OBAR,KC_TRNS, KC_TRNS, GKJ_IDOT,
-       KC_TRNS, KC_TRNS, GKJ_OE,  KC_TRNS, KC_TRNS, GKJ_BRV, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, GKJ_CDLA, GKJ_RBLW,
+       KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, GKJ_BAR,   GKJ_OGNK,GKJ_DOT,KC_TRNS, KC_TRNS,  GKJ_BAR,
+       KC_TRNS, GKJ_ASH,   GKJ_OBAR,KC_TRNS, KC_TRNS, GKJ_IDOT,
+       KC_TRNS, GKJ_OKINA, GKJ_OE,  KC_TRNS, KC_TRNS, GKJ_BRV, KC_TRNS,
+       KC_TRNS, KC_TRNS,   KC_TRNS, GKJ_CDLA, GKJ_RBLW,
                                            GKJ_IOTA,UC_M_LN,
                                                     UC_M_WI,
                                   GKJ_SMTH,GKJ_ROUGH,UC_M_MA,
@@ -308,6 +308,9 @@ void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
         case GKJ_HACEK:
           send_unicode_string("̌");
+          break;
+        case GKJ_TILDE:
+          send_unicode_string("̃");
           break;
         case GKJ_DOT:
           send_unicode_string("̇");
