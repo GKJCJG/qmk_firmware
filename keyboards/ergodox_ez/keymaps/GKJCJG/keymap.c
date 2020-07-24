@@ -137,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [ANKI] = LAYOUT_ergodox_pretty(
   // left hand
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_E, KC_TRNS,    KC_Y,      KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_E,    KC_TRNS,    KC_Y,      KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,       KC_TRNS,                          KC_D,    KC_ENT,  KC_T,    KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, G(KC_Z), KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -151,9 +151,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // left hand
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, GK_P,    GK_TH,   KC_TRNS,     KC_TRNS,  GK_PH,   GK_G,    GK_KS,   GK_R,    GK_L,    KC_TRNS,
-  KC_TRNS, GK_A,    GK_O,    GK_E,    GK_Y,    GK_I,                           GK_D,    GK_HH,   GK_T,    GK_N,    GK_S,    KC_TRNS,
+  KC_TRNS, GK_A,    GK_O,    GK_E,    GK_Y,    GK_I,                           GK_D,    GK_H,    GK_T,    GK_N,    GK_S,    KC_TRNS,
   KC_TRNS, KC_TRNS, GK_OO,   GK_PS,   GK_K,    GK_KH,   GKJ_IOTA,    GKJ_TREMA,GK_B,    GK_M,    GK_W,    GK_SF,   GK_Z,    KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  GK_HH,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 
                                               GKJ_ACUTE,GKJ_GRAVE,   GKJ_SMTH, GKJ_ROUGH,
                                                         KC_TRNS,     GKJ_CFLX,
