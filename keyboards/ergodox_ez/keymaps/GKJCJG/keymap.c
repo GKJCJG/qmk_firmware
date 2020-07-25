@@ -4,7 +4,11 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "custom_keycodes.c"
-#include "character_list.c"
+#include "greek_characters.c"
+#include "russian_characters.c"
+#include "exotic_characters.c"
+#include "get_foreign_letter.c"
+#include "get_accented_character.c"
 
 #define DVORAK 0 // default layer
 #define DV_WORK 1
@@ -17,7 +21,7 @@
 
 bool awaiting_letter = false;
 
-uint16_t char_to_send = PLACEHOLDER;
+uint16_t target_accent = PLACEHOLDER;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -269,15 +273,21 @@ void eeconfig_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    if (awaiting_letter && keycode == KC_SPC) {
-      post_process_record_user(keycode, record);
-      return false;
+    char * to_send;
+    if (awaiting_letter) {
+      to_send = get_accented_character(keycode, target_accent);
+      if (strcmp(to_send, "") == 0) {
+        send_unicode_string(to_send);
+        return true;
+      }
     }
-    if (keycode > GKJ_IOTA && keycode < R_U_ION) {
+    if (keycode > GKJ_START && keycode < R_END) {
       if (get_mods() & MOD_MASK_SHIFT) {
-        send_unicode_string(up_low_chars[keycode - GKJ_ASH + 1]);
+        to_send = get_foreign_letter(keycode + 1);
+        send_unicode_string(to_send);
       } else {
-        send_unicode_string(up_low_chars[keycode - GKJ_ASH]);
+        to_send = get_foreign_letter(keycode);
+        send_unicode_string(to_send);
       }
     }
   }
@@ -287,69 +297,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void post_process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!(record->event.pressed) && (keycode < QK_MOMENTARY || keycode > QK_MOMENTARY_MAX)) { // Will fire after the release of the character after the accent is triggered.
     if (awaiting_letter) {
-      switch (char_to_send) {
-        case GKJ_ACUTE:
-          send_unicode_string("́");
-          break;
-        case GKJ_GRAVE:
-          send_unicode_string("̀");
-          break;
-        case GKJ_CFLX:
-          send_unicode_string("̂");
-          break;
-        case GKJ_MCRN:
-          send_unicode_string("̄");
-          break;
-        case GKJ_TREMA:
-          send_unicode_string("̈");
-          break;
-        case GKJ_BAR:
-          send_unicode_string("̍");
-          break;
-        case GKJ_HACEK:
-          send_unicode_string("̌");
-          break;
-        case GKJ_TILDE:
-          send_unicode_string("̃");
-          break;
-        case GKJ_DOT:
-          send_unicode_string("̇");
-          break;
-        case GKJ_RING:
-          send_unicode_string("̊");
-          break;
-        case GKJ_RBLW:
-          send_unicode_string("̥");
-          break;
-        case GKJ_SMVL:
-          send_unicode_string("̯");
-          break;
-        case GKJ_UBLW:
-          send_unicode_string("̮");
-          break;
-        case GKJ_CDLA:
-          send_unicode_string("̧");
-          break;
-        case GKJ_OGNK:
-          send_unicode_string("̨");
-          break;
-        case GKJ_BRV:
-          send_unicode_string("̆");
-          break;
-        case GKJ_SMTH:
-          send_unicode_string("̓");
-          break;
-        case GKJ_ROUGH:
-          send_unicode_string("̔");
-          break;
-        case GKJ_IOTA:
-          send_unicode_string("ͅ");
-          break;
-      }
-      char_to_send = PLACEHOLDER;
+      target_accent = PLACEHOLDER;
       awaiting_letter = false;
-    } else if (keycode > PLACEHOLDER && keycode <= GKJ_IOTA) {
-      char_to_send = keycode;
+    } else if (keycode > ACC_START && keycode < ACC_END) {
+      target_accent = keycode;
       awaiting_letter = true;
     } 
   }
