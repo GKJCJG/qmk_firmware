@@ -1,5 +1,8 @@
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE,
+
+  ACC_START,
+
   GKJ_ACUTE, // /
   GKJ_GRAVE, // g
   GKJ_CFLX, // c
@@ -19,6 +22,10 @@ enum custom_keycodes {
   GKJ_SMTH, // LTHUMB
   GKJ_ROUGH, // LTHUMB
   GKJ_IOTA, // LTHUMB
+
+  ACC_END,
+
+  GKJ_START,
 
   GKJ_ASH, // a
   GKJ_U_ASH,
@@ -43,6 +50,9 @@ enum custom_keycodes {
   GKJ_OKINA, // ;
   GKJ_U_OKINA, // hamza
 
+  GKJ_END,
+
+  GK_START,
 
   GK_A,
   GK_U_A,
@@ -98,6 +108,10 @@ enum custom_keycodes {
   GK_U_W,
   GK_HH,
   GK_U_HH,
+
+  GK_END,
+
+  R_START,
   
   R_A, //
   R_U_A,
@@ -172,5 +186,7 @@ enum custom_keycodes {
   R_IEN, //
   R_U_IEN,
   R_ION, //
-  R_U_ION
+  R_U_ION,
+
+  R_END
 };
