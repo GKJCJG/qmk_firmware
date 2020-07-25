@@ -276,9 +276,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     char * to_send;
     if (awaiting_letter) {
       to_send = get_accented_character(keycode, target_accent);
-      if (strcmp(to_send, "") == 0) {
+      if (strcmp(to_send, "") != 0) {
         send_unicode_string(to_send);
-        return true;
+        return false;
       }
     }
     if (keycode > GKJ_START && keycode < R_END) {
