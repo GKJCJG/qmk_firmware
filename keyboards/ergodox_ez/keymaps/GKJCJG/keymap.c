@@ -226,7 +226,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |  BAR | OGNK | DOT  |      |      |      |           |      | UBLW |GRAVE | CFLX | RING | LBAR | ACUTE  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |  ASH | OBAR |      |      | IDOT |------|           |------|  ETH | HBAR | THRN |TILDE |  SZ  | TREMA  |
+ * |        |  ASH | OBAR |      |  UE  | IDOT |------|           |------|  ETH | HBAR | THRN |TILDE |  SZ  | TREMA  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        | OKINA|  OE  |      |      |  BRV |      |           |      | BBAR |      |      |HACEK | SMVL |  MCRN  |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -243,10 +243,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // MEDIA AND MOUSE
 [ACCENTS] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, GKJ_BAR,   GKJ_OGNK,GKJ_DOT,KC_TRNS, KC_TRNS,  GKJ_BAR,
-       KC_TRNS, GKJ_ASH,   GKJ_OBAR,KC_TRNS, KC_TRNS, GKJ_IDOT,
+       KC_TRNS, GKJ_BAR,   GKJ_OGNK,GKJ_DOT, KC_TRNS, KC_TRNS, GKJ_BAR,
+       KC_TRNS, GKJ_ASH,   GKJ_OBAR,KC_TRNS, GKJ_UE,  GKJ_IDOT,
        KC_TRNS, GKJ_OKINA, GKJ_OE,  KC_TRNS, KC_TRNS, GKJ_BRV, KC_TRNS,
-       KC_TRNS, KC_TRNS,   KC_TRNS, GKJ_CDLA, GKJ_RBLW,
+       KC_TRNS, KC_TRNS,   KC_TRNS, GKJ_CDLA,GKJ_RBLW,
                                            GKJ_IOTA,UC_M_LN,
                                                     UC_M_WI,
                                   GKJ_SMTH,GKJ_ROUGH,UC_M_MA,
@@ -275,7 +275,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     char * to_send;
     if (awaiting_letter) {
-      to_send = get_accented_character(keycode, target_accent);
+      to_send = get_accented_character(keycode, target_accent, !!(get_mods() & MOD_MASK_SHIFT));
       if (strcmp(to_send, "") != 0) {
         send_unicode_string(to_send);
         return false;

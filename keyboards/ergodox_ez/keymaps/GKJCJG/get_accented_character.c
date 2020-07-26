@@ -1,45 +1,28 @@
 #include "accented_character_impl.c"
 
-char * get_accented_character(uint16_t keycode, uint16_t target_accent) {
+#define GET_ACCENT(accent_code, function_name) case accent_code: return function_name(keycode, should_shift);
+
+char * get_accented_character(uint16_t keycode, uint16_t target_accent, bool should_shift) {
   switch (target_accent) {
-    case GKJ_ACUTE:
-      return get_acute(keycode);
-    case GKJ_GRAVE:
-      return get_grave(keycode);
-    case GKJ_CFLX:
-      return get_circumflex(keycode);
-    case GKJ_MCRN:
-      return get_macron(keycode);
-    case GKJ_TREMA:
-      return get_trema(keycode);
-    case GKJ_BAR:
-      return get_vertical_bar(keycode);
-    case GKJ_HACEK:
-      return get_hacek(keycode);
-    case GKJ_TILDE:
-      return get_tilde(keycode);
-    case GKJ_DOT:
-      return get_dot(keycode);
-    case GKJ_RING:
-      return get_ring(keycode);
-    case GKJ_RBLW:
-      return get_ring_below(keycode);
-    case GKJ_SMVL:
-      return get_semivowel(keycode);
-    case GKJ_UBLW:
-      return get_u_below(keycode);
-    case GKJ_CDLA:
-      return get_cedilla(keycode);
-    case GKJ_OGNK:
-      return get_ogonek(keycode);
-    case GKJ_BRV:
-      return get_breve(keycode);
-    case GKJ_SMTH:
-      return get_smooth_breathing(keycode);
-    case GKJ_ROUGH:
-      return get_rough_breathing(keycode);
-    case GKJ_IOTA:
-      return get_iota_subscript(keycode);
+    GET_ACCENT(GKJ_ACUTE, get_acute)
+    GET_ACCENT(GKJ_GRAVE, get_grave)
+    GET_ACCENT(GKJ_CFLX, get_circumflex)
+    GET_ACCENT(GKJ_MCRN, get_macron)
+    GET_ACCENT(GKJ_TREMA, get_trema)
+    GET_ACCENT(GKJ_BAR, get_vertical_bar)
+    GET_ACCENT(GKJ_HACEK, get_hacek)
+    GET_ACCENT(GKJ_TILDE, get_tilde)
+    GET_ACCENT(GKJ_DOT, get_dot)
+    GET_ACCENT(GKJ_RING, get_ring)
+    GET_ACCENT(GKJ_RBLW, get_ring_below)
+    GET_ACCENT(GKJ_SMVL, get_semivowel)
+    GET_ACCENT(GKJ_UBLW, get_u_below)
+    GET_ACCENT(GKJ_CDLA, get_cedilla)
+    GET_ACCENT(GKJ_OGNK, get_ogonek)
+    GET_ACCENT(GKJ_BRV, get_breve)
+    GET_ACCENT(GKJ_SMTH, get_smooth_breathing)
+    GET_ACCENT(GKJ_ROUGH, get_rough_breathing)
+    GET_ACCENT(GKJ_IOTA, get_iota_subscript)
     default:
       return "";
   }

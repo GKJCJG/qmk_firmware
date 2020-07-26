@@ -44,6 +44,10 @@ char * exotic_finder(uint16_t keycode) {
       return "ʻ";
     case GKJ_U_OKINA:
       return "ء";
+    case GKJ_UE:
+      return "ü";
+    case GKJ_U_UE:
+      return "Ü";
     default:
       return "";
   }

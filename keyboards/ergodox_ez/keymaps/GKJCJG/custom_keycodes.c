@@ -49,6 +49,8 @@ enum custom_keycodes {
   GKJ_U_IDOT,
   GKJ_OKINA, // ;
   GKJ_U_OKINA, // hamza
+  GKJ_UE, // ü
+  GKJ_U_UE,
 
   GKJ_END,
 
