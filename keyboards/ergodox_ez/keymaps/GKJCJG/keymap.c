@@ -14,10 +14,12 @@
 #define DV_WORK 1
 #define QWERTY 2
 #define ANKI 3
-#define GREEK 4
-#define RUSSIAN 5
-#define SYMB 6 // symbols
-#define ACCENTS 7 // Various accents and foreign characters
+#define ARABIC_MAIN 4
+#define ARABIC_AUX 5
+#define GREEK 6
+#define RUSSIAN 7
+#define SYMB 8 // symbols
+#define ACCENTS 9 // Various accents and foreign characters
 
 bool awaiting_letter = false;
 
@@ -151,6 +153,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_ENT
 ),
 
+[ARABIC_MAIN] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, S(KC_H), KC_TRNS, KC_U,    KC_RBRC,    KC_D,      KC_TRNS,     KC_TRNS,  KC_T,    KC_Y,    KC_E,    KC_N,    KC_G,    KC_TRNS,
+  KC_TRNS, KC_H,    S(KC_V), S(KC_D), S(KC_C),    S(KC_N),                          KC_V,    KC_I,    KC_J,    KC_K,    KC_S,    KC_TRNS,
+  KC_TRNS, S(KC_B), KC_R,    KC_LBRC, KC_SCLN,    KC_O,      KC_TRNS,     KC_TRNS,  KC_F,    KC_L,    KC_M,    S(KC_M), KC_B,    KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                               MO(ARABIC_AUX), MO(ACCENTS),KC_UP,  KC_DOWN, KC_TRNS,
+
+                                                    KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS,
+                                                             KC_TRNS,     KC_TRNS,
+                                           KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_ENT
+),
+
+[ARABIC_AUX] = LAYOUT_ergodox_pretty(
+  // left hand
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, S(KC_W), KC_TRNS, KC_TRNS, S(KC_Y),    S(KC_R),   KC_TRNS,     KC_TRNS,  KC_Z,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, S(KC_Q), S(KC_U), S(KC_I), S(KC_T),    S(KC_E),                          KC_Q,    KC_P,    KC_X,    KC_TRNS, KC_W,    KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,     KC_TRNS,  KC_C,    KC_TRNS, KC_TRNS, KC_TRNS, KC_A,    KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                               KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+
+                                                    KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS,
+                                                             KC_TRNS,     KC_TRNS,
+                                           KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_ENT
+),
+
 [GREEK] = LAYOUT_ergodox_pretty(
   // left hand
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -251,7 +279,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     UC_M_WI,
                                   GKJ_SMTH,GKJ_ROUGH,UC_M_MA,
     // right hand
-       KC_TRNS,  KC_TRNS, KC_TRNS,  DF(DV_WORK), TG(ANKI), TG(RUSSIAN), TG(GREEK),
+       KC_TRNS,  KC_TRNS, TG(ARABIC_MAIN),  DF(DV_WORK), TG(ANKI), TG(RUSSIAN), TG(GREEK),
        KC_TRNS,  GKJ_UBLW,GKJ_GRAVE,GKJ_CFLX,GKJ_RING, GKJ_LBAR,GKJ_ACUTE,
                  GKJ_ETH, GKJ_HBAR, GKJ_THRN,GKJ_TILDE,GKJ_SZ,  GKJ_TREMA,
        KC_TRNS,  GKJ_BBAR,KC_TRNS,  KC_TRNS, GKJ_HACEK,GKJ_SMVL,GKJ_MCRN,
@@ -327,46 +355,46 @@ layer_state_t layer_state_set_user(layer_state_t state) {
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
         #endif
         break;
-      case 1:
+      case ANKI:
         ergodox_right_led_1_on();
         #ifdef RGBLIGHT_COLOR_LAYER_1
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
         #endif
         break;
-      case 2:
+      case ARABIC_MAIN:
         ergodox_right_led_2_on();
         #ifdef RGBLIGHT_COLOR_LAYER_2
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
         #endif
         break;
-      case 3:
+      case ARABIC_AUX:
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_3
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
         #endif
         break;
-      case 4:
+      case GREEK:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         #ifdef RGBLIGHT_COLOR_LAYER_4
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
         #endif
         break;
-      case 5:
+      case RUSSIAN:
         ergodox_right_led_1_on();
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_5
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
         #endif
         break;
-      case 6:
+      case SYMB:
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
         #ifdef RGBLIGHT_COLOR_LAYER_6
           rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
         #endif
         break;
-      case 7:
+      case ACCENTS:
         ergodox_right_led_1_on();
         ergodox_right_led_2_on();
         ergodox_right_led_3_on();
