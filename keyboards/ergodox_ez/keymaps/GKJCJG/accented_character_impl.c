@@ -56,6 +56,11 @@ char * get_circumflex(uint16_t keycode, bool should_shift) {
     CHARACTER_WITH_CASE(KC_I, "î", "Î")
     CHARACTER_WITH_CASE(KC_O, "ô", "Ô")
     CHARACTER_WITH_CASE(KC_U, "û", "Û")
+    CHARACTER_NO_CASE(GK_A, "ᾶ")
+    CHARACTER_NO_CASE(GK_H, "ῆ")
+    CHARACTER_NO_CASE(GK_I, "ῖ")
+    CHARACTER_NO_CASE(GK_Y, "ῦ")
+    CHARACTER_NO_CASE(GK_OO, "ῶ")
     default:
       return "";
   }
@@ -72,6 +77,7 @@ char * get_macron(uint16_t keycode, bool should_shift) {
     CHARACTER_WITH_CASE(GKJ_ASH, "ǣ", "Ǣ")
     CHARACTER_WITH_CASE(GKJ_OBAR, "ø̄", "Ø̄")
     CHARACTER_WITH_CASE(GKJ_OE, "œ̄", "Œ̄")
+    CHARACTER_WITH_CASE(GK_A, "ᾱ", "Ᾱ")
     CHARACTER_WITH_CASE(GK_I, "ῑ", "Ῑ")
     CHARACTER_WITH_CASE(GK_Y, "ῡ", "Ῡ")
     default:
@@ -186,6 +192,13 @@ char * get_breve(uint16_t keycode, bool should_shift) {
 char * get_smooth_breathing(uint16_t keycode, bool should_shift) {
   switch(keycode) {
     CHARACTER_NO_CASE(KC_SPC, "̓")
+    CHARACTER_WITH_CASE(GK_A, "ἀ", "Ἀ")
+    CHARACTER_WITH_CASE(GK_E, "ἐ", "Ἐ")
+    CHARACTER_WITH_CASE(GK_H, "ἠ", "Ἠ")
+    CHARACTER_WITH_CASE(GK_I, "ἰ", "Ἰ")
+    CHARACTER_WITH_CASE(GK_O, "ὀ", "Ὀ")
+    CHARACTER_NO_CASE(GK_Y, "ὐ")
+    CHARACTER_WITH_CASE(GK_OO, "ὠ", "Ὠ")
     default:
       return "";
   }
@@ -193,6 +206,13 @@ char * get_smooth_breathing(uint16_t keycode, bool should_shift) {
 char * get_rough_breathing(uint16_t keycode, bool should_shift) {
   switch(keycode) {
     CHARACTER_NO_CASE(KC_SPC, "̔")
+    CHARACTER_WITH_CASE(GK_A, "ἁ", "Ἁ")
+    CHARACTER_WITH_CASE(GK_E, "ἑ", "Ἑ")
+    CHARACTER_WITH_CASE(GK_H, "ἡ", "Ἡ")
+    CHARACTER_WITH_CASE(GK_I, "ἱ", "Ἱ")
+    CHARACTER_WITH_CASE(GK_O, "ὁ", "Ὁ")
+    CHARACTER_WITH_CASE(GK_Y, "ὑ", "Ὑ")
+    CHARACTER_WITH_CASE(GK_OO, "ὡ", "Ὡ")
     default:
       return "";
   }
